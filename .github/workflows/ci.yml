@@ -16,15 +16,15 @@ jobs:
     
       - name: Make .env file 📄
         run: |
-          echo "API_VERSION=test" > src/.env
+          echo "API_VERSION=test" >> src/.env
           echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> src/.env
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> src/.env
           echo "CORS_ALLOWED_ORIGINS=*" >> src/.env
           echo "JWT_SECRET=sF9p8kzL6mBxV7rQw3Xj4PzH2vN8tK5c" >> src/.env
           echo "JWT_ISSUER=VOU-BE" >> src/.env
           echo "JWT_AUDIENCE=VOU-FE" >> src/.env
-          echo "WEB_UI_VERSION=test" > src/.env
-          echo "VITE_API_URL=http://localhost:8080" > src/.env
+          echo "WEB_UI_VERSION=test" >> src/.env
+          echo "VITE_API_URL=http://localhost:8080" >> src/.env
           echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> src/.env
           echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> src/.env
           
