@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.UserAPI
 {
-    [Route("api/[controller]")]
+    [Route("api/Player/[controller]")]
     [ApiController]
     [Authorize(Roles = "Player")]
     public class EventController : ControllerBase

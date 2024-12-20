@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.BrandAPI
 {
-    [Route("api/[controller]")]
+    [Route("api/Brand/[controller]")]
     [ApiController]
     [Authorize(Roles = "Brand")]
     public class EventController : ControllerBase

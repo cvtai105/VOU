@@ -46,19 +46,7 @@ namespace Api.StartupExtensions
 
             /* Identity Services */
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])), // or Jwt:Key
-                        ValidIssuer = config["Token:Issuer"], // or Jwt:Issuer
-                        ValidateIssuer = true,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
+                .AddJwtBearer();
             services.ConfigureOptions<JwtOptionConfig>();
             services.ConfigureOptions<JwtValidateConfig>();
             //Tạm thời Authorize băng role, nếu cần phức tạp hơn thì sử dụng Policy

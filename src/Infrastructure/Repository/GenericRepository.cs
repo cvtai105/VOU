@@ -92,4 +92,5 @@ namespace Infrastructure.Repository
         {
             return await _db.SaveChangesAsync();
         }
+    }
 }
