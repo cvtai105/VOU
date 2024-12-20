@@ -1,4 +1,4 @@
-name: Run Playwright Tests 🎭
+name: Run Tests
 
 on:
   pull_request:
@@ -16,6 +16,8 @@ jobs:
     
       - name: Make .env file 📄
         run: |
+          cd src
+          echo "API_VERSION=test" > .env
           echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
           
@@ -25,6 +27,7 @@ jobs:
           echo "JWT_ISSUER=VOU-BE" >> .env
           echo "JWT_AUDIENCE=VOU-FE" >> .env
 
+          echo "WEB_UI_VERSION=test" > .env
           echo "VITE_API_URL=http://localhost:8080" > .env
           echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
           echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> .env
@@ -32,9 +35,7 @@ jobs:
       # Start apis and database
       - name: Start containers 🐳
         run: |
-          cd src
-          docker compose -f docker-compose.dev.yml up -d
-          cd ..
+          docker compose -f docker-compose.dev.yml up --build -d
         
     #   # Setup and test locally
     #   - name: Install node ⚙️
