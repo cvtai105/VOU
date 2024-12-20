@@ -30,7 +30,10 @@ jobs:
           echo "VITE_API_URL=http://localhost:8080" > src/.env
           echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> src/.env
           echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> src/.env
-
+          
+      - name: Check .env file 📄
+        run: cat src/.env
+        
       # Start apis and database
       - name: Start containers 🐳
         run: |
