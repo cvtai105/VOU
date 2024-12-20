@@ -1,0 +1,72 @@
+name: Deploy Identity Service to Azure Virtual Machine 
+
+on:
+  push:
+    paths: 
+      - '.github/workflows/t.api.cd.yml'
+    branches: [ production ]
+
+env:
+  api-version: 0.1
+  ui-version: 0.1
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ⚙️
+        uses: actions/checkout@v4
+      
+      - name: Make .env file 📄
+        run: |
+          echo "API_VERSION=${{ env.api-version }}" > .env
+          echo "CORS_ALLOWED_ORIGINS=*" >> .env
+          echo "DB_CONNECTION_STRING=Server=database,1433;Database=VOU;User Id=sa;Password=${{secrets.MSSQL_SA_PASSWORD}};" >> .env  
+          echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "JWT_ISSUER=VOU_BE" >> .env
+          echo "JWT_AUDIENCE=VOU_FE" >> .env
+
+          echo "WEB_UI_VERSION=${{ env.ui-version }}" > .env
+          echo "VITE_API_URL=#" >> .env
+          echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
+          echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> .env
+
+      - name: Login to Docker Hub 🐳
+        uses: docker/login-action@v2
+        with:
+          username: cvtai
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push images 🐳
+        run: |
+          docker compose -f docker-compose.host.yml build
+          docker compose -f docker-compose.host.yml push
+  
+      # - name: Copy file via SSH 🚀
+      #   uses: appleboy/scp-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     port: 22
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     source: ".env,docker-compose.host.yml"
+      #     target: Seminar-CI-CD/
+
+      # - name: Pull and Deploy via SSH 🚀
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     port: 22
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd Seminar-CI-CD
+      #       docker ps
+      #       docker pull cvtai/identity-api:$${{ env.version }}
+      #       docker compose -f docker-compose.host.yml down
+      #       docker compose -f docker-compose.host.yml up -d
+      #       docker ps
+
+       

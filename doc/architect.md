@@ -1,6 +1,6 @@
 # Version 1: Monolithic
 ### Database
-### Backend
+### API
 ### UI
 ### 
 

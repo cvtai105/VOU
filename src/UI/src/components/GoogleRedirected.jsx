@@ -9,13 +9,9 @@ function GoogleRedirected() {
 
     const code = new URLSearchParams(window.location.search).get("code");
 
-
-    // fetch with code to backend
-
     useEffect(() => {
         if (code) {
-            // fetch with code to backend
-            fetch(`${import.meta.env.VITE_IDENTITY_API_URL}/api/oauth2/google?code=${code}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}`, {
+            fetch(`${import.meta.env.VITE_API_URL}/api/oauth2/google?code=${code}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
