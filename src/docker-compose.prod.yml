@@ -1,0 +1,36 @@
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    image: cvtai/vou-api:${API_VERSION}
+    ports:
+      - "5005:8080"  # Map HTTP port
+      - "7060:8081"  # Map HTTPS port
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=database,1433;Database=VOU;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=true
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
+      - GoogleAuthSettings__ClientId=${GOOGLE_CLIENT_ID}
+      - GoogleAuthSettings__ClientSecret=${GOOGLE_CLIENT_SECRET}
+      - AllowedHosts=${CORS_ALLOWED_ORIGINS}
+    
+    depends_on:
+      - database
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:

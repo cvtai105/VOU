@@ -19,7 +19,7 @@ function Login() {
     setError(null);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/player/auth/login`,
+        `${import.meta.env.VITE_API_URL}/player/auth/login`,
         {
           method: "POST",
           headers: {

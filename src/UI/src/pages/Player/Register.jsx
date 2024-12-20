@@ -19,7 +19,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/player/auth/register`,
+        `${import.meta.env.VITE_API_URL}/player/auth/register`,
         {
           method: "POST",
           headers: {
