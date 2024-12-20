@@ -15,15 +15,12 @@ dotnet sln add ProjectName.Infrastructure/ProjectName.Infrastructure.csproj
 
 #Clean Architect dependencies
 dotnet add Application/Application.csproj reference Domain/Domain.csproj
-
 dotnet add Infrastructure/Infrastructure.csproj reference Application/Application.csproj
 dotnet add Infrastructure/Infrastructure.csproj reference Domain/Domain.csproj
-
 dotnet add Api/Api.csproj reference Application/Application.csproj
 dotnet add Api/Api.csproj reference Infrastructure/Infrastructure.csproj
 
 --> create entities with navigation properties
-
 #package:
 dotnet add Application/Application.csproj package Microsoft.Extensions.DependencyInjection
 dotnet add Application/Application.csproj package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.7

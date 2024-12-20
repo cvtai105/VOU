@@ -7,6 +7,7 @@ function Register() {
   // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const { login } = useContext(AppContext);
@@ -28,7 +29,8 @@ function Register() {
             // username: username,
             email: email,
             password: password,
-            name: name,
+            fullname: name,
+            phone: phone,
           }),
         }
       );
@@ -89,6 +91,17 @@ function Register() {
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+            className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+        <div className="text-left">
+          <label className="font-medium text-gray-700">Phone Number:</label>
+          <input
+            type="tel"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
             className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           />
