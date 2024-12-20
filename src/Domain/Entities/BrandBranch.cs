@@ -1,9 +1,8 @@
 
 namespace Domain.Entities
 {
-    public class BrandBranch
+    public class BrandBranch : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid BrandId { get; set; }
         public string Title { get; set; } = null!;
         public string Address { get; set; } = null!;

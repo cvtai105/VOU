@@ -1,9 +1,8 @@
 
 namespace Domain.Entities
 {
-    public class QuestionSet
+    public class QuestionSet : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid BrandId { get; set; }
 
         // Navigation Properties

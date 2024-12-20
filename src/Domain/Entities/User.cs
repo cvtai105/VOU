@@ -1,9 +1,8 @@
 
 namespace Domain.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        public Guid Id { get; set; } 
         public string FullName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string ImageUrl { get; set; } = "";

@@ -1,9 +1,8 @@
 
 namespace Domain.Entities
 {
-    public class Event
+    public class Event : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid? BrandId { get; set; }
         public Guid? GameId { get; set; }
         public string Name { get; set; } = null!;

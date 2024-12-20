@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class WishList
+    public class WishList : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid EventId { get; set; }
         public Guid UserId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

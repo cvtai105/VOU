@@ -1,8 +1,7 @@
 namespace Domain.Entities
 {
-    public class Brand
+    public class Brand : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid? UserId { get; set; }
         public string Name { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;

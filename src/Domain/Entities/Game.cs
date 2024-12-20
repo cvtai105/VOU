@@ -1,9 +1,8 @@
 
 namespace Domain.Entities
 {
-    public class Game
+    public class Game : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid QuestionSetId { get; set; }
         public string Name { get; set; } = null!;
         public string ImageUrl { get; set; } = "";

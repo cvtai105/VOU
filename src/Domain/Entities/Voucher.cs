@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Voucher
+    public class Voucher : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid BrandId { get; set; }
         public string Code { get; set; } = null!;
         public string QrCodeUrl { get; set; } = null!;

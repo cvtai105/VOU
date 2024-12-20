@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Question
+    public class Question : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid QuestionSetId { get; set; }
         public string Content { get; set; } = null!;
         public string AnswerList { get; set; } = null!;

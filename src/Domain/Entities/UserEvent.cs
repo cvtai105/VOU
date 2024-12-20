@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserEvent
+    public class UserEvent : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid EventId { get; set; }
         public Guid UserId { get; set; }
         public int TurnsLeft { get; set; }
