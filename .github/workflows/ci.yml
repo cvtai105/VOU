@@ -35,6 +35,7 @@ jobs:
       # Start apis and database
       - name: Start containers 🐳
         run: |
+          cd src
           docker compose -f docker-compose.dev.yml up --build -d
         
     #   # Setup and test locally
