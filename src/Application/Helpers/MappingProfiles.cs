@@ -15,7 +15,7 @@ namespace Application.Helpers
         {
             CreateMap<Event, EventResponseDTO>()
                 .ForMember(m => m.Brand, o => o.MapFrom(s => s.Brand))
-                .ForMember(m => m.Game, o => o.MapFrom(s => s.Game));
+                .ForMember(m => m.Game, o => o.MapFrom(s => s.Games));
         }
     }
 }

@@ -32,6 +32,12 @@ namespace Infrastructure.Data
         public DbSet<UserVoucher> UserVouchers { get; set; } = null!;
         public DbSet<Voucher> Vouchers { get; set; } = null!;
         public DbSet<WishList> WishLists { get; set; } = null!;
+
+        public DbSet<UserPiece> UserPieces { get; set; } = null!;
+        public DbSet<VoucherPiece> VoucherPieces { get; set; } = null!;
+        public DbSet<QuizzGame> QuizzGames { get; set; } = null!;
+        public DbSet<ShakeGame> ShakeGames { get; set; } = null!;
+        public DbSet<ExchangePiece> ExchangePieces { get; set; } = null!;
        
     }
 }

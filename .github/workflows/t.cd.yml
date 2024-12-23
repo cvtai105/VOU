@@ -28,7 +28,7 @@ jobs:
           echo "JWT_ISSUER=VOU_BE" >> .env
           echo "JWT_AUDIENCE=VOU_FE" >> .env
 
-          echo "WEB_UI_VERSION=${{ env.ui-version }}" > .env
+          echo "WEB_UI_VERSION=${{ env.ui-version }}" >> .env
           echo "VITE_API_URL=#" >> .env
           echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
           echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> .env

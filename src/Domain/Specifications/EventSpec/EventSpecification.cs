@@ -20,7 +20,7 @@ namespace Domain.Specifications.EventSpec
             if (include)
             {
                 AddInclude(o => o.Brand);
-                AddInclude(o => o.Game);
+                AddInclude(o => o.Games);
                 AddInclude(o => o.UserEvents);
                 AddInclude(o => o.EventVouchers);
             }
