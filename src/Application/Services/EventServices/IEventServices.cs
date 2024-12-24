@@ -18,6 +18,7 @@ namespace Application.Services.EventServices
         Task<bool> CreateEventAsync(Event newEvent);
         Task<bool> UpdateEventAsync(Event updatedEvent);
         Task<bool> DeleteEventAsync(Guid eventId);
+        Task<IEnumerable<WishList>> GetWishlistEventsAsync(Guid userId);
         Task<bool> AddEventToWishlist(Guid eventId, Guid userId);
         Task<bool> RemoveEventFromWishlist(Guid eventId, Guid userId);
     }

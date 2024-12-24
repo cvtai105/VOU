@@ -81,6 +81,11 @@ namespace Infrastructure.Services
             return await _eventRepo.SaveAsync() > 0;
         }
 
+        public async Task<IEnumerable<WishList>> GetWishlistEventsAsync(Guid userId)
+        {
+            return await _wishlistRepo.ListAsync(new WishlistSpecification(userId));
+        }
+
         public async Task<bool> AddEventToWishlist(Guid eventId, Guid userId)
         {
             var wishlist = new WishList()

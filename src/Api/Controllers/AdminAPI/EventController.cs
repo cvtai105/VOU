@@ -1,6 +1,7 @@
 ﻿using Api.Commons;
 using Application.DTOs;
 using Application.Services.EventServices;
+using Application.Services.ImageServices;
 using AutoMapper;
 using Domain.Enums;
 using Domain.Specifications.EventSpec;

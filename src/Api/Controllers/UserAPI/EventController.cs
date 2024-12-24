@@ -51,6 +51,14 @@ namespace Api.Controllers.UserAPI
             return Ok(events);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetWishlistEvents()
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var events = await _eventServices.GetWishlistEventsAsync(userId);
+            return Ok(events);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddEventToWishlist(Guid eventId)
         {

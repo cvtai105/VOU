@@ -14,5 +14,11 @@ namespace Domain.Specifications.WishlistSpec
         {
             AddInclude(o => o.Event);
         }
+
+        public WishlistSpecification(Guid userId)
+            : base(o => o.UserId == userId)
+        {
+            AddInclude(o => o.Event);
+        }
     }
 }
