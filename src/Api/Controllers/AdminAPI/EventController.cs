@@ -2,16 +2,17 @@
 using Application.DTOs;
 using Application.Services.EventServices;
 using AutoMapper;
+using Domain.Enums;
 using Domain.Specifications.EventSpec;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.BrandAPI
+namespace Api.Controllers.AdminAPI
 {
-    [Route("api/Brand/[controller]")]
+    [Route("api/Admin/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Brand")]
+    [Authorize(Roles = "Admin")]
     public class EventController : ControllerBase
     {
         #region vars
@@ -49,27 +50,6 @@ namespace Api.Controllers.BrandAPI
             return Ok(events);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateEvent([FromForm] EventRequestDTO newEventRequest)
-        {
-            var newEvent = new Domain.Entities.Event()
-            {
-                Name = newEventRequest.Name,
-                BrandId = newEventRequest.BrandId,
-                StartAt = newEventRequest.StartAt,
-                EndAt = newEventRequest.EndAt,
-            };
-            // Vouchers ?
-            // TODO: Implement Picture Service to upload to cloud and retrieve image URL
-            var success = await _eventServices.CreateEventAsync(newEvent);
-            if (!success)
-            {
-                return BadRequest(new ApiResponse(400, "Failed to create event"));
-            }
-
-            return Ok();
-        }
-
         [HttpPut]
         public async Task<IActionResult> UpdateEvent([FromForm] EventRequestDTO updatedEventRequest)
         {
@@ -79,9 +59,7 @@ namespace Api.Controllers.BrandAPI
             }
 
             var matchingEvent = await _eventServices.GetEventByIDAsync((Guid)updatedEventRequest.Id);
-            matchingEvent.Name = updatedEventRequest.Name;
-            matchingEvent.StartAt = updatedEventRequest.StartAt;
-            matchingEvent.EndAt = updatedEventRequest.EndAt;
+            matchingEvent.Status = (EventStatus)updatedEventRequest.Status;
             // Vouchers ?
 
             // TODO: Implement Picture Service to upload to cloud and retrieve image URL
@@ -90,18 +68,6 @@ namespace Api.Controllers.BrandAPI
             if (!result)
             {
                 return BadRequest(new ApiResponse(400, "Failed to update event"));
-            }
-
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEvent(Guid id)
-        {
-            var success = await _eventServices.DeleteEventAsync(id);
-            if (!success)
-            {
-                return BadRequest(new ApiResponse(400, "Failed to delete event"));
             }
 
             return Ok();

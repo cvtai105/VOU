@@ -1,4 +1,5 @@
-﻿using Application.DTOs;
+﻿using Api.Commons;
+using Application.DTOs;
 using Application.Services.EventServices;
 using AutoMapper;
 using Domain.Constants;
@@ -6,6 +7,7 @@ using Domain.Specifications.EventSpec;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Api.Controllers.UserAPI
 {
@@ -47,6 +49,32 @@ namespace Api.Controllers.UserAPI
         {
             var events = await _eventServices.GetEventsAsync(eventSpecParams);
             return Ok(events);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEventToWishlist(Guid eventId)
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var success = await _eventServices.AddEventToWishlist(eventId, userId);
+            if (!success)
+            {
+                return BadRequest(new ApiResponse(400, "Failed to add event to wishlist."));
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveEventFromWishlist(Guid eventId)
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var success = await _eventServices.RemoveEventFromWishlist(eventId, userId);
+            if (!success)
+            {
+                return BadRequest(new ApiResponse(400, "Failed to remove event from wishlist."));
+            }
+
+            return Ok();
         }
     }
 }

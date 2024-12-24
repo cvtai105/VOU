@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Repository;
 using Domain.Specifications.EventSpec;
+using Domain.Specifications.WishlistSpec;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Infrastructure.Services
     {
         #region vars
         private readonly IGenericRepository<Event> _eventRepo;
+        private readonly IGenericRepository<WishList> _wishlistRepo;
         private readonly IMapper _mapper;
         #endregion
 
@@ -33,9 +35,9 @@ namespace Infrastructure.Services
             return await _eventRepo.GetByIdAsync(eventId);
         }
 
-        public async Task<Pagination<EventResponseDTO>> GetEventsAsync(EventSpecParams eventSpecParams)
+        public async Task<Pagination<EventResponseDTO>> GetEventsAsync(EventSpecParams eventSpecParams, bool isUser = true)
         {
-            var spec = new EventSpecification(eventSpecParams);
+            var spec = isUser == true ? new EventSpecification(eventSpecParams, user: isUser) : new EventSpecification(eventSpecParams);
             var countSpec = new EventCountSpecification(eventSpecParams);
 
             List<Event> events = await _eventRepo.ListAsync(spec);
@@ -77,6 +79,33 @@ namespace Infrastructure.Services
             _eventRepo.Delete(eventToDelete);
 
             return await _eventRepo.SaveAsync() > 0;
+        }
+
+        public async Task<bool> AddEventToWishlist(Guid eventId, Guid userId)
+        {
+            var wishlist = new WishList()
+            {
+                EventId = eventId,
+                UserId = userId
+            };
+
+            _wishlistRepo.Add(wishlist);
+
+            return await _wishlistRepo.SaveAsync() > 0;
+        }
+
+        public async Task<bool> RemoveEventFromWishlist(Guid eventId, Guid userId)
+        {
+            var wishlist = await _wishlistRepo.GetEntityWithSpec(new WishlistSpecification(eventId, userId));
+
+            if (wishlist == null)
+            {
+                return false;
+            }
+
+            _wishlistRepo.Delete(wishlist);
+
+            return await _wishlistRepo.SaveAsync() > 0;
         }
     }
 }
