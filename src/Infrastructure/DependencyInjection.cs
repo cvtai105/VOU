@@ -2,8 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
 using Infrastructure.Identity;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -13,7 +11,7 @@ namespace Infrastructure
         {
             // services.AddDbContext<ApplicationDbContext>(options =>
             //     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddScoped<IJwtService, JwtService>();
             return services;
         }

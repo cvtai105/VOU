@@ -1,12 +1,10 @@
 ﻿using Api.Commons;
 using Application.DTOs;
 using Application.Services.EventServices;
-using Application.Services.ImageServices;
 using AutoMapper;
 using Domain.Enums;
 using Domain.Specifications.EventSpec;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.AdminAPI

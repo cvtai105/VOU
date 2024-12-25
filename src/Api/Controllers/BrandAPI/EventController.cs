@@ -5,7 +5,6 @@ using Application.Services.ImageServices;
 using AutoMapper;
 using Domain.Specifications.EventSpec;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.BrandAPI

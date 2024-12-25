@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Entities;
 
 namespace Domain.Specifications.BrandSpec
@@ -17,11 +13,11 @@ namespace Domain.Specifications.BrandSpec
             }
 
             ApplyPaging(brandSpecParams.PageSize * (brandSpecParams.PageIndex - 1), brandSpecParams.PageSize);
-        } 
+        }
 
-        public BrandSpecification(Guid userId) : base(o => o.UserId == userId) 
+        public BrandSpecification(Guid userId) : base(o => o.UserId == userId)
         {
-            
+
         }
     }
 }

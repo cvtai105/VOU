@@ -1,12 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Specifications;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.SpecificationEvaluator
 {
@@ -27,7 +21,7 @@ namespace Infrastructure.SpecificationEvaluator
             {
                 query = query.OrderBy(spec.OrderBy);
             }
-            
+
             if (spec.OrderByDescending != null)
             {
                 query = query.OrderByDescending(spec.OrderByDescending);

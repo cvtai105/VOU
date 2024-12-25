@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.Jwt;
@@ -75,6 +71,6 @@ namespace Infrastructure.Identity
         {
             throw new NotImplementedException();
         }
-       
+
     }
 }

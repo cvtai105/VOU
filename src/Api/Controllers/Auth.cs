@@ -4,7 +4,6 @@ using Application.Interfaces;
 using Application.Services.AuthServices;
 using Application.Services.BrandServices;
 using Application.UserUsecases;
-using Domain.Constants;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,7 +44,7 @@ public class Auth : Controller
         if (user == null) return Unauthorized(new { Message = "Email was not registered" });
 
         var passwordHash = loginInfo.Password.Hash();
-        if(user.Role != role)
+        if (user.Role != role)
             return Unauthorized(new { Message = "Your Email was registerd as " + user.Role });
         if (passwordHash != user.Hash)
             return Unauthorized(new { Message = "Wrong password" });
@@ -79,7 +78,8 @@ public class Auth : Controller
         var newUser = await _createUserHandler.ExecuteAsync(createUserParam);
 
         // If role is brand, create a brand
-        if (role == "brand") {
+        if (role == "brand")
+        {
             var brand = new Brand()
             {
                 Id = Guid.NewGuid(),

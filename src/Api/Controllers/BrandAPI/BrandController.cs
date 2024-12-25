@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Api.Commons;
-using Application.Common.UserUsecases;
 using Application.DTOs;
 using Application.Services.BrandServices;
 using Application.Services.ImageServices;
@@ -25,7 +20,7 @@ namespace Api.Controllers.BrandAPI
         private readonly IImageServices _imageServices;
         private readonly IMapper _mapper;
         #endregion
-        
+
         #region ctor
         public BrandController(ILogger<BrandController> logger, IBrandServices brandServices, IImageServices imageServices, IMapper mapper)
         {
@@ -46,7 +41,7 @@ namespace Api.Controllers.BrandAPI
             }
 
             var brandDto = _mapper.Map<BrandResponseDTO>(brandEntity);
-            
+
             return Ok(brandDto);
         }
 
@@ -118,7 +113,7 @@ namespace Api.Controllers.BrandAPI
             brandEntity.Latitude = updatedBrand.Latitude;
             brandEntity.Longitude = updatedBrand.Longitude;
 
-            if (updatedBrand.BrandImage != null) 
+            if (updatedBrand.BrandImage != null)
             {
                 string fileName = brandEntity.Id + "_" + Guid.NewGuid().ToString();
                 string folderName = "brands";

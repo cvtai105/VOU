@@ -6,13 +6,6 @@ using Domain.Entities;
 using Domain.Repository;
 using Domain.Specifications.EventSpec;
 using Domain.Specifications.WishlistSpec;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -49,9 +42,9 @@ namespace Infrastructure.Services
             var eventResponses = events.Count == 0 ? [] : _mapper.Map<List<Event>, List<EventResponseDTO>>(events);
 
             return new Pagination<EventResponseDTO>(
-                eventSpecParams.PageIndex, 
-                eventSpecParams.PageSize, 
-                numMatchingEvents, 
+                eventSpecParams.PageIndex,
+                eventSpecParams.PageSize,
+                numMatchingEvents,
                 eventResponses
             );
         }

@@ -4,11 +4,6 @@ using Domain.Specifications;
 using Infrastructure.Data;
 using Infrastructure.SpecificationEvaluator;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {

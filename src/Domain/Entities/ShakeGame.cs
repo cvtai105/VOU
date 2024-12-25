@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Domain.Entities
 {
     public class ShakeGame : BaseEntity
@@ -12,6 +7,6 @@ namespace Domain.Entities
 
         // Navigation Properties
         public Game Game { get; set; } = null!;
-        
+
     }
 }

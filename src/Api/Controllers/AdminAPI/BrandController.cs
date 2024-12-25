@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.DTOs;
 using Application.Services.BrandServices;
 using AutoMapper;
@@ -41,7 +37,7 @@ namespace Api.Controllers.AdminAPI
             }
 
             var brandDto = _mapper.Map<BrandResponseDTO>(brandEntity);
-            
+
             return Ok(brandDto);
         }
 

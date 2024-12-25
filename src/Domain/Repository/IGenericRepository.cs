@@ -1,14 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Specifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Repository
 {
-    public interface IGenericRepository <T> where T : BaseEntity
+    public interface IGenericRepository<T> where T : BaseEntity
     {
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAllAsync();

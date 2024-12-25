@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Specifications
+﻿namespace Domain.Specifications
 {
     public class BaseSpecParams
     {
@@ -18,9 +12,9 @@ namespace Domain.Specifications
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
-        
+
         public string? Sort { get; set; }
-        
+
         private string? _searchTerm { get; set; }
 
         public string? SearchTerm

@@ -7,7 +7,7 @@ namespace Domain.Entities
         public string Type { get; set; } = null!;
         public string ImageUrl { get; set; } = String.Empty;
         public string GameplayInstruction { get; set; } = String.Empty;
-        public bool CanExchangeVoucherPieces { get; set; } 
+        public bool CanExchangeVoucherPieces { get; set; }
         public string Status { get; set; } = String.Empty;
         public Guid EventId { get; set; }
 

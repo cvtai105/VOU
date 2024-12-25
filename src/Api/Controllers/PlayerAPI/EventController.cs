@@ -2,10 +2,8 @@
 using Application.DTOs;
 using Application.Services.EventServices;
 using AutoMapper;
-using Domain.Constants;
 using Domain.Specifications.EventSpec;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
