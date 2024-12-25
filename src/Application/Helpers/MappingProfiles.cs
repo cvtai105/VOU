@@ -14,8 +14,13 @@ namespace Application.Helpers
         public MappingProfiles()
         {
             CreateMap<Event, EventResponseDTO>()
-                .ForMember(m => m.Brand, o => o.MapFrom(s => s.Brand))
-                .ForMember(m => m.Game, o => o.MapFrom(s => s.Games));
+            .ForMember(m => m.Id, o => o.MapFrom(s => s.Id))
+            .ForMember(m => m.Name, o => o.MapFrom(s => s.Name))
+            .ForMember(m => m.ImageUrl, o => o.MapFrom(s => s.ImageUrl))
+            .ForMember(m => m.StartAt, o => o.MapFrom(s => s.StartAt))
+            .ForMember(m => m.EndAt, o => o.MapFrom(s => s.EndAt))
+                .ForMember(m => m.Status, o => o.MapFrom(s => s.Status.ToString()))
+                .ForMember(m => m.Brand, o => o.MapFrom(s => s.Brand ?? null));
         }
     }
 }

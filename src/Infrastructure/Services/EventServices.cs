@@ -7,6 +7,7 @@ using Domain.Repository;
 using Domain.Specifications.EventSpec;
 using Domain.Specifications.WishlistSpec;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,15 +41,15 @@ namespace Infrastructure.Services
             var spec = isUser == true ? new EventSpecification(eventSpecParams, user: isUser) : new EventSpecification(eventSpecParams);
             var countSpec = new EventCountSpecification(eventSpecParams);
 
-            List<Event> events = await _eventRepo.ListAsync(spec);
+            List<Event> events = await _eventRepo.ListAsync(spec) ?? [];
             int numMatchingEvents = await _eventRepo.CountAsync(countSpec);
 
-            var eventResponses = _mapper.Map<List<Event>, List<EventResponseDTO>>(events);
+            var eventResponses = events.IsNullOrEmpty() ? [] : _mapper.Map<List<Event>, List<EventResponseDTO>>(events);
 
             return new Pagination<EventResponseDTO>(
                 eventSpecParams.PageIndex, 
                 eventSpecParams.PageSize, 
-                events.Count, 
+                numMatchingEvents, 
                 eventResponses
             );
         }

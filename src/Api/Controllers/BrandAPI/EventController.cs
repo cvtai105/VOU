@@ -12,7 +12,7 @@ namespace Api.Controllers.BrandAPI
 {
     [Route("api/Brand/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Brand")]
+    [Authorize(Roles = "brand")]
     public class EventController : ControllerBase
     {
         #region vars

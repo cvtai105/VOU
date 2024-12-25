@@ -16,6 +16,5 @@ namespace Application.DTOs
         public DateTime EndAt { get; set; }
         public string Status { get; set; } = "";
         public Brand? Brand { get; set; }
-        public Game? Game { get; set; }
     }
 }

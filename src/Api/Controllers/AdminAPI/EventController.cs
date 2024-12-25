@@ -13,7 +13,7 @@ namespace Api.Controllers.AdminAPI
 {
     [Route("api/Admin/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class EventController : ControllerBase
     {
         #region vars

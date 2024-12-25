@@ -3,6 +3,7 @@ using Api.Config;
 using Application.Helpers;
 using Application.Interfaces;
 using Application.Services.EventServices;
+using Application.Services.ImageServices;
 using Domain.Repository;
 using Infrastructure.Data;
 using Infrastructure.Repository;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -27,6 +29,7 @@ namespace Api.StartupExtensions
 
             #region services
             services.AddScoped<IEventServices, EventServices>();
+            services.AddScoped<IImageServices, ImageServices>();
             #endregion
 
             #region repos
@@ -46,7 +49,19 @@ namespace Api.StartupExtensions
 
             /* Identity Services */
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer();
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters 
+                    {
+                        RoleClaimType = ClaimTypes.Role,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = config["JwtSettings:Issuer"],
+                        ValidAudience = config["JwtSettings:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Secret"]))
+                    };
+                });
             services.ConfigureOptions<JwtOptionConfig>();
             services.ConfigureOptions<JwtValidateConfig>();
             //Tạm thời Authorize băng role, nếu cần phức tạp hơn thì sử dụng Policy

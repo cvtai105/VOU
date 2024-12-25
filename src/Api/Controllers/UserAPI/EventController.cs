@@ -13,7 +13,7 @@ namespace Api.Controllers.UserAPI
 {
     [Route("api/Player/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Player")]
+    [Authorize(Roles = "player")]
     public class EventController : ControllerBase
     {
         #region vars
@@ -51,7 +51,7 @@ namespace Api.Controllers.UserAPI
             return Ok(events);
         }
 
-        [HttpGet]
+        [HttpGet("wishlist")]
         public async Task<IActionResult> GetWishlistEvents()
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -59,7 +59,7 @@ namespace Api.Controllers.UserAPI
             return Ok(events);
         }
 
-        [HttpPost]
+        [HttpPost("wishlist/{eventId}")]
         public async Task<IActionResult> AddEventToWishlist(Guid eventId)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -72,7 +72,7 @@ namespace Api.Controllers.UserAPI
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("wishlist/{eventId}")]
         public async Task<IActionResult> RemoveEventFromWishlist(Guid eventId)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
