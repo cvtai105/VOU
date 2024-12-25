@@ -28,6 +28,7 @@ namespace Application.UserUsecases
         {
             var user = new User
             {
+                Id = Guid.NewGuid(),
                 Email = param.Email,
                 FullName = param.FullName,
                 Phone = param.Phone,
@@ -67,7 +68,7 @@ namespace Application.UserUsecases
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            user.Hash = "";
+            // user.Hash = "";
 
             return user;
         }

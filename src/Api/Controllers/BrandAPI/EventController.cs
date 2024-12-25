@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.BrandAPI
 {
-    [Route("api/Brand/[controller]")]
+    [Route("api/brand/[controller]")]
     [ApiController]
     [Authorize(Roles = "brand")]
     public class EventController : ControllerBase
@@ -62,6 +62,7 @@ namespace Api.Controllers.BrandAPI
                 BrandId = newEventRequest.BrandId,
                 StartAt = newEventRequest.StartAt,
                 EndAt = newEventRequest.EndAt,
+                Status = Domain.Enums.EventStatus.Pending
             };
             // Vouchers ?
             // TODO: Implement Picture Service to upload to cloud and retrieve image URL
@@ -91,6 +92,12 @@ namespace Api.Controllers.BrandAPI
             }
 
             var matchingEvent = await _eventServices.GetEventByIDAsync((Guid)updatedEventRequest.Id);
+
+            if (matchingEvent == null)
+            {
+                return NotFound(new ApiResponse(404, "Event not found"));
+            }
+
             matchingEvent.Name = updatedEventRequest.Name;
             matchingEvent.StartAt = updatedEventRequest.StartAt;
             matchingEvent.EndAt = updatedEventRequest.EndAt;
@@ -99,7 +106,7 @@ namespace Api.Controllers.BrandAPI
             // TODO: Implement Picture Service to upload to cloud and retrieve image URL
             if (updatedEventRequest.Picture != null)
             {
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = matchingEvent.Id + "_" + Guid.NewGuid().ToString();
                 string folderName = "events";
                 string imageUrl = await _imageServices.UploadImageAsync(updatedEventRequest.Picture, fileName, folderName);
                 matchingEvent.ImageUrl = imageUrl;

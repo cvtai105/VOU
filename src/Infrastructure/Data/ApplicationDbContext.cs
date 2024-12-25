@@ -18,6 +18,12 @@ namespace Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<Brand>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Brands)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.NoAction); // Use NoAction instead of Cascade
         }
 
         public DbSet<User> Users { get; set; } = null!;

@@ -24,7 +24,7 @@
                 "/Views": "${workspaceFolder}/Views"
             },
             "dotnetRunMessages": true,
-            "requireExactSource": true,
+            "requireExactSource": false,
             "launchBrowser": {
                 "enabled": true,
                 "args": "${auto-detect-url}",

@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Api.Controllers.UserAPI
+namespace Api.Controllers.PlayerAPI
 {
-    [Route("api/Player/[controller]")]
+    [Route("api/player/[controller]")]
     [ApiController]
     [Authorize(Roles = "player")]
     public class EventController : ControllerBase
@@ -54,7 +54,7 @@ namespace Api.Controllers.UserAPI
         [HttpGet("wishlist")]
         public async Task<IActionResult> GetWishlistEvents()
         {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
             var events = await _eventServices.GetWishlistEventsAsync(userId);
             return Ok(events);
         }
@@ -62,7 +62,7 @@ namespace Api.Controllers.UserAPI
         [HttpPost("wishlist/{eventId}")]
         public async Task<IActionResult> AddEventToWishlist(Guid eventId)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
             var success = await _eventServices.AddEventToWishlist(eventId, userId);
             if (!success)
             {
@@ -75,7 +75,7 @@ namespace Api.Controllers.UserAPI
         [HttpDelete("wishlist/{eventId}")]
         public async Task<IActionResult> RemoveEventFromWishlist(Guid eventId)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
             var success = await _eventServices.RemoveEventFromWishlist(eventId, userId);
             if (!success)
             {

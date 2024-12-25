@@ -37,11 +37,12 @@ namespace Infrastructure.Identity
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_options.Secret);
 
-            var claims = new List<Claim>
+            var claims = new List<Claim>()
             {
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new(JwtRegisteredClaimNames.Email, user.Email),
                 new(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim("User Id", user.Id.ToString()),
                 new(ClaimTypes.Role, user.Role??string.Empty),
                 new Claim("fullname", user.FullName),
                 new Claim("picture", user.ImageUrl??string.Empty),

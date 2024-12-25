@@ -25,9 +25,11 @@ namespace Infrastructure.Services
         #endregion
 
         #region ctor
-        public EventServices(IGenericRepository<Event> eventRepo)
+        public EventServices(IGenericRepository<Event> eventRepo, IGenericRepository<WishList> wishlistRepo, IMapper mapper)
         {
             _eventRepo = eventRepo;
+            _wishlistRepo = wishlistRepo;
+            _mapper = mapper;
         }
         #endregion
 
@@ -44,7 +46,7 @@ namespace Infrastructure.Services
             List<Event> events = await _eventRepo.ListAsync(spec) ?? [];
             int numMatchingEvents = await _eventRepo.CountAsync(countSpec);
 
-            var eventResponses = events.IsNullOrEmpty() ? [] : _mapper.Map<List<Event>, List<EventResponseDTO>>(events);
+            var eventResponses = events.Count == 0 ? [] : _mapper.Map<List<Event>, List<EventResponseDTO>>(events);
 
             return new Pagination<EventResponseDTO>(
                 eventSpecParams.PageIndex, 

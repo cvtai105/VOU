@@ -2,8 +2,10 @@ using Api.DTOs;
 using Application.Common.UserUsecases;
 using Application.Interfaces;
 using Application.Services.AuthServices;
+using Application.Services.BrandServices;
 using Application.UserUsecases;
 using Domain.Constants;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -11,17 +13,24 @@ namespace Api.Controllers;
 [Route("{role}/auth")]
 public class Auth : Controller
 {
+    #region vars
     private readonly ILogger<Auth> _logger;
     private readonly CreateUserHandler _createUserHandler;
     private readonly GetUserHandler _getUserHandler;
     private readonly IJwtService _jwtService;
-    public Auth(ILogger<Auth> logger, GetUserHandler getUserHandler, CreateUserHandler createUserHandler, IJwtService jwtService)
+    private readonly IBrandServices _brandServices;
+    #endregion
+
+    #region ctor
+    public Auth(ILogger<Auth> logger, GetUserHandler getUserHandler, CreateUserHandler createUserHandler, IJwtService jwtService, IBrandServices brandServices)
     {
         _createUserHandler = createUserHandler;
         _getUserHandler = getUserHandler;
         _jwtService = jwtService;
         _logger = logger;
+        _brandServices = brandServices;
     }
+    #endregion
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(string role, [FromBody] LoginRecord loginInfo)
@@ -68,6 +77,16 @@ public class Auth : Controller
 
         var createUserParam = info.ToCreateUserParam(role);
         var newUser = await _createUserHandler.ExecuteAsync(createUserParam);
+
+        // If role is brand, create a brand
+        if (role == "brand") {
+            var brand = new Brand()
+            {
+                Id = Guid.NewGuid(),
+                UserId = newUser.Id,
+            };
+            await _brandServices.CreateBrandAsync(brand);
+        }
 
         var accessToken = _jwtService.GenerateAccessToken(newUser);
         var refreshToken = _jwtService.GenerateRefreshToken(newUser);

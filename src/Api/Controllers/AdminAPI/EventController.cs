@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.AdminAPI
 {
-    [Route("api/Admin/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "admin")]
     public class EventController : ControllerBase

@@ -2,6 +2,7 @@
 using Api.Config;
 using Application.Helpers;
 using Application.Interfaces;
+using Application.Services.BrandServices;
 using Application.Services.EventServices;
 using Application.Services.ImageServices;
 using Domain.Repository;
@@ -29,6 +30,7 @@ namespace Api.StartupExtensions
 
             #region services
             services.AddScoped<IEventServices, EventServices>();
+            services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<IImageServices, ImageServices>();
             #endregion
 

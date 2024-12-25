@@ -11,7 +11,7 @@ namespace Domain.Specifications.EventSpec
     {
         public EventSpecification(EventSpecParams eventSpecParams, bool include = true)
             : base(o => (string.IsNullOrEmpty(eventSpecParams.BrandId) || o.BrandId.ToString() == eventSpecParams.BrandId) &&
-                        o.Brand.Name.Contains(eventSpecParams.BrandName) &&
+                        (o.Brand.Name.Contains(eventSpecParams.BrandName) || o.Brand.Name.Contains(eventSpecParams.SearchTerm)) &&
                         (eventSpecParams.Field == Enums.BrandField.All || o.Brand.Field == eventSpecParams.Field.ToString())
             )
         {
