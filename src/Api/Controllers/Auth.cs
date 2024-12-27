@@ -1,9 +1,8 @@
-using Api.DTOs;
-using Application.Common.UserUsecases;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Services.AuthServices;
 using Application.Services.BrandServices;
-using Application.UserUsecases;
+using Application.Services.User;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 

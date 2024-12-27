@@ -1,6 +1,6 @@
-using Application.UserUsecases;
+using Application.Services.User;
 
-namespace Api.DTOs;
+namespace Application.DTOs ;
 
 public class UserRegistration()
 {
