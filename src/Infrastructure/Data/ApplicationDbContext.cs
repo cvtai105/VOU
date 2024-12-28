@@ -20,6 +20,8 @@ namespace Infrastructure.Data
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction); // Use NoAction instead of Cascade
 
+   
+
         }
 
         public DbSet<User> Users { get; set; } = null!;

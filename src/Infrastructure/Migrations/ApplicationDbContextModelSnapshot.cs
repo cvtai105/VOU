@@ -188,11 +188,33 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("CanExchangeVoucherPieces")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GamePrototypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("GamePrototypeId");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GamePrototype", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("CanExchangeVoucherPieces")
+                        .HasColumnType("bit");
 
                     b.Property<string>("GameplayInstruction")
                         .IsRequired()
@@ -216,9 +238,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId");
-
-                    b.ToTable("Games");
+                    b.ToTable("GamePrototypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
@@ -270,7 +290,10 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GameId")
+                    b.Property<Guid>("EventGameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("QuestionSetId")
@@ -281,7 +304,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
+                    b.HasIndex("EventGameId");
+
+                    b.HasIndex("GamePrototypeId");
 
                     b.HasIndex("QuestionSetId");
 
@@ -294,7 +319,10 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GameId")
+                    b.Property<Guid>("EventGameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VoucherPieceCount")
@@ -302,7 +330,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
+                    b.HasIndex("EventGameId");
+
+                    b.HasIndex("GamePrototypeId");
 
                     b.ToTable("ShakeGames");
                 });
@@ -515,7 +545,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Brands")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -591,7 +621,13 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
+                        .WithMany()
+                        .HasForeignKey("GamePrototypeId");
+
                     b.Navigation("Event");
+
+                    b.Navigation("GamePrototype");
                 });
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
@@ -618,9 +654,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.QuizzGame", b =>
                 {
-                    b.HasOne("Domain.Entities.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "EventGame")
                         .WithMany()
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("EventGameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
+                        .WithMany()
+                        .HasForeignKey("GamePrototypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -630,20 +672,30 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("EventGame");
+
+                    b.Navigation("GamePrototype");
 
                     b.Navigation("QuestionSet");
                 });
 
             modelBuilder.Entity("Domain.Entities.ShakeGame", b =>
                 {
-                    b.HasOne("Domain.Entities.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "EventGame")
                         .WithMany()
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("EventGameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
+                        .WithMany()
+                        .HasForeignKey("GamePrototypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EventGame");
+
+                    b.Navigation("GamePrototype");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserEvent", b =>
