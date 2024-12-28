@@ -20,6 +20,11 @@ namespace Infrastructure.Data
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction); // Use NoAction instead of Cascade
 
+            builder.Entity<GamePrototype>().HasData(
+                new GamePrototype { Id = Guid.Parse("9e4f49fe-0786-44c6-9061-53d2ed84fab3"), Name = "Quizz Game", Type = "Quizz" },
+                new GamePrototype { Id = Guid.Parse("9e4f49fe-0786-44c6-9061-1232aa84fab3"), Name = "Shake Game", Type = "Shake" }
+            );
+            
         }
 
         public DbSet<User> Users { get; set; } = null!;

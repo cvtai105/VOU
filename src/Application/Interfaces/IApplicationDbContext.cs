@@ -17,6 +17,13 @@ namespace Application.Interfaces
         DbSet<UserVoucher> UserVouchers { get; }
         DbSet<Voucher> Vouchers { get; }
         DbSet<WishList> WishLists { get; }
+        DbSet<UserPiece> UserPieces { get; }
+        DbSet<VoucherPiece> VoucherPieces { get; }
+        DbSet<GamePrototype> GamePrototypes { get; }
+        DbSet<QuizzGame> QuizzGames { get; }
+        DbSet<ShakeGame> ShakeGames { get; }
+        DbSet<ExchangePiece> ExchangePieces { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
