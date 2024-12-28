@@ -1,6 +1,7 @@
 using System.Text;
 using Api.Config;
 using Api.Middlewares;
+using Api.StartupExtensions;
 using Application;
 using Application.Interfaces;
 using Infrastructure;
@@ -14,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwaggerServices();
 
 // Cấu hình dịch vụ logging
 builder.Logging.ClearProviders();
@@ -22,11 +24,9 @@ builder.Logging.AddDebug();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
-builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
-builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.ConfigureServices(builder.Configuration, builder.Environment);
 
 builder.Services.AddInfrastructure();
 builder.Services.AddCoreServices();
@@ -41,12 +41,11 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer();
-builder.Services.ConfigureOptions<JwtOptionConfig>();
-builder.Services.ConfigureOptions<JwtValidateConfig>();
-//Tạm thời Authorize băng role, nếu cần phức tạp hơn thì sử dụng Policy
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer();
+//builder.Services.ConfigureOptions<JwtOptionConfig>();
+//builder.Services.ConfigureOptions<JwtValidateConfig>();
+//builder.Services.AddAuthorization();
     
 var app = builder.Build();
 

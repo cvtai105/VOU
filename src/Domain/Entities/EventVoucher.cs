@@ -1,9 +1,7 @@
-
 namespace Domain.Entities
 {
-    public class EventVoucher
+    public class EventVoucher : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid EventId { get; set; }
         public Guid VoucherId { get; set; }
         public int Quantity { get; set; }

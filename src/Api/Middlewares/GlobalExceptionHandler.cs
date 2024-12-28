@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Common.Exceptions;
 using Application.Exceptions;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;

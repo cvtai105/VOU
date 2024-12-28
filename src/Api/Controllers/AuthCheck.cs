@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +21,14 @@ public class AuthCheck : Controller
     }
 
     [HttpGet("admin")]
-    [Authorize(Roles= Roles.Admin)]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult AdminAuthCheck()
     {
         return Ok("Pass");
     }
-    
+
     [HttpGet("brand")]
-    [Authorize(Roles= Roles.Brand)]
+    [Authorize(Roles = Roles.Brand)]
     public IActionResult BrandAuthCheck()
     {
         return Ok("Pass");

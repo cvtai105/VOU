@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Infrastructure.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -21,7 +17,8 @@ namespace Api.Config
 
         public void Configure(JwtBearerOptions options)
         {
-            options.TokenValidationParameters = new(){
+            options.TokenValidationParameters = new()
+            {
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,

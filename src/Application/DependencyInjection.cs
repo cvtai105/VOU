@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Common.UserUsecases;
-using Application.UserUsecases;
+using Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application

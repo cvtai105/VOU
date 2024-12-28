@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Domain.Entities
 {
-    public class Voucher
+    public class Voucher : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid BrandId { get; set; }
         public string Code { get; set; } = null!;
         public string QrCodeUrl { get; set; } = null!;
@@ -16,6 +10,7 @@ namespace Domain.Entities
         public string Description { get; set; } = null!;
         public DateTime ExpiredAt { get; set; }
         public int Quantity { get; set; }
+        public int PieceCount { get; set; }     //for game that need to collect pieces, require brand to set this value
 
         // Navigation Properties
         public Brand Brand { get; set; } = null!;
