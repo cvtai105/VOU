@@ -1,3 +1,4 @@
+using Application.Services.GameServices.Factory;
 using Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +10,7 @@ namespace Application
         {
             services.AddScoped<CreateUserHandler>();
             services.AddScoped<GetUserHandler>();
+            services.AddSingleton<GameCreatorFactory>();
             return services;
         }
     }
