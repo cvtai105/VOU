@@ -30,8 +30,8 @@ dotnet add Domain/Domain.csproj package MediatR
 dotnet add Api/Api.csproj package Microsoft.EntityFrameworkCore.Design --version 8.0.7
 
 #migrate
-dotnet ef migrations add Initial --project Infrastructure -o Data/Migrations --startup-project Api
-dotnet ef database update Initial --project Infrastructure --startup-project Api
+dotnet ef migrations add Initial --project Infrastructure -o Migrations --startup-project Api
+dotnet ef database update --project Infrastructure --startup-project Api
 
 
 #check

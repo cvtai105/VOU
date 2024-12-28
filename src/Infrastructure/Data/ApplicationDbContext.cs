@@ -19,6 +19,7 @@ namespace Infrastructure.Data
                 .WithMany(u => u.Brands)
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction); // Use NoAction instead of Cascade
+
         }
 
         public DbSet<User> Users { get; set; } = null!;
@@ -35,6 +36,7 @@ namespace Infrastructure.Data
         public DbSet<WishList> WishLists { get; set; } = null!;
         public DbSet<UserPiece> UserPieces { get; set; } = null!;
         public DbSet<VoucherPiece> VoucherPieces { get; set; } = null!;
+        public DbSet<GamePrototype> GamePrototypes { get; set; } = null!;
         public DbSet<QuizzGame> QuizzGames { get; set; } = null!;
         public DbSet<ShakeGame> ShakeGames { get; set; } = null!;
         public DbSet<ExchangePiece> ExchangePieces { get; set; } = null!;
