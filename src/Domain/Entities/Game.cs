@@ -3,16 +3,12 @@ namespace Domain.Entities
 {
     public class Game : BaseEntity
     {
-        public string Name { get; set; } = null!;
-        public string Type { get; set; } = null!;
-        public string ImageUrl { get; set; } = String.Empty;
-        public string GameplayInstruction { get; set; } = String.Empty;
-        public bool CanExchangeVoucherPieces { get; set; }
-        public string Status { get; set; } = String.Empty;
         public Guid EventId { get; set; }
-
+        public Guid? GamePrototypeId { get; set; }
+        public string Type { get; set; } = null!; 
+        
         // Navigation Property
-        public Event Event { get; set; } = null!;       //1 game belongs to 1 event
-
+        public Event Event { get; set; } = null!;       
+        public GamePrototype? GamePrototype { get; set; } = null!;  
     }
 }
