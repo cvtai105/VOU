@@ -52,7 +52,7 @@ namespace Api.Controllers.PlayerAPI
         [HttpGet("wishlist")]
         public async Task<IActionResult> GetWishlistEvents()
         {
-            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
+            Guid userId = Guid.Parse(User.FindFirstValue("userId"));
             var events = await _eventServices.GetWishlistEventsAsync(userId);
             return Ok(events);
         }
@@ -60,7 +60,7 @@ namespace Api.Controllers.PlayerAPI
         [HttpPost("wishlist/{eventId}")]
         public async Task<IActionResult> AddEventToWishlist(Guid eventId)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
+            Guid userId = Guid.Parse(User.FindFirstValue("userId"));
             var success = await _eventServices.AddEventToWishlist(eventId, userId);
             if (!success)
             {
@@ -73,7 +73,7 @@ namespace Api.Controllers.PlayerAPI
         [HttpDelete("wishlist/{eventId}")]
         public async Task<IActionResult> RemoveEventFromWishlist(Guid eventId)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue("User Id"));
+            Guid userId = Guid.Parse(User.FindFirstValue("userId"));
             var success = await _eventServices.RemoveEventFromWishlist(eventId, userId);
             if (!success)
             {

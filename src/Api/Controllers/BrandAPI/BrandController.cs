@@ -48,7 +48,7 @@ namespace Api.Controllers.BrandAPI
         [HttpGet]
         public async Task<IActionResult> GetBrandByUserId()
         {
-            var userIdValue = User.FindFirstValue("User Id");
+            var userIdValue = User.FindFirstValue("userId");
             if (userIdValue == null)
             {
                 return Unauthorized();
@@ -75,7 +75,7 @@ namespace Api.Controllers.BrandAPI
             var newBrandEntity = new Domain.Entities.Brand()
             {
                 Id = Guid.NewGuid(),
-                UserId = Guid.Parse(User.FindFirstValue("User Id")),
+                UserId = Guid.Parse(User.FindFirstValue("userId")),
             };
 
             var result = await _brandServices.CreateBrandAsync(newBrandEntity);
