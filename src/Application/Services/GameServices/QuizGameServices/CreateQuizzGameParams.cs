@@ -1,6 +1,6 @@
-using Application.Services.GameServices.Contract;
+using Application.DTOs.GameDTOs;
 
-namespace Application.Services.GameServices.QuizzGameService
+namespace Application.Services.GameServices.QuizzGameServices
 {
     public class CreateQuizzGameParams : CreateGameParamsBase
     {

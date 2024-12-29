@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Application.DTOs.Game;
+using Application.DTOs.GameDTOs;
 using Application.Services.GameServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Application.Services.GameServices.Converter;
+using Application.Helpers.Converter;
 
-namespace Application.Services.GameServices.Contract
+namespace Application.DTOs.GameDTOs
 {
     [JsonConverter(typeof(CreateGameParamsConverter))]
     public abstract class CreateGameParamsBase

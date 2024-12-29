@@ -5,6 +5,7 @@ namespace Domain.Entities
         public Guid UserId { get; set; }
         public Guid VoucherPieceId { get; set; }
         public Guid GameId { get; set; }
+        public int Quantity { get; set; }
 
 
         // Navigation Properties

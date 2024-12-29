@@ -1,4 +1,4 @@
-using Application.DTOs.Game;
+using Application.DTOs.GameDTOs;
 using Domain.Entities;
 
 namespace Application.Services.GameServices
@@ -14,6 +14,8 @@ namespace Application.Services.GameServices
         Task<bool> AddGamesToEventAsync(CreateEventGameRequest param);
         Task<bool> StopEventGame(Guid gameId);
 
-        // admin authentication required
+        // player authentication required
+        Task<GameRewardBase> RewardPlayer(GetRewardRequest request);
+        Task<List<GameRewardBase>> GetPlayerRewardByGame(GetRewardRequest request);
     }
 }

@@ -12,11 +12,11 @@ Body:
       "type": "Shake",
       "startTime": "2024-12-29T01:06:20.687Z",
       "endTime": "2024-12-29T01:06:20.687Z",
-      "voucherPieceCount": 2                    // muốn tạo shake game cần có field này
+      "voucherPieceCount": 2  // muốn tạo shake game, có thể cần dòng này, dùng để tạo voucherpieces nếu chưa có
     },
     {
       "gamePrototypeId": "9e4f49fe-0786-44c6-9061-1232aa84fab3",
-      "type": "Shake",
+      "type": "Quiz",
       "startTime": "2024-12-29T01:06:20.687Z",
       "endTime": "2024-12-29T01:06:20.687Z",
       "questionSetId": xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx // muốn tạo quiz game cần có field này
