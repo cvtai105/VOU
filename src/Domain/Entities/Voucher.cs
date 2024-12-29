@@ -14,7 +14,8 @@ namespace Domain.Entities
 
         // Navigation Properties
         public Brand Brand { get; set; } = null!;
-        public ICollection<UserVoucher> UserVouchers { get; set; } = new List<UserVoucher>();
-        public ICollection<EventVoucher> EventVouchers { get; set; } = new List<EventVoucher>();
+        public ICollection<UserVoucher> UserVouchers { get; set; } = [];
+        public ICollection<EventVoucher> EventVouchers { get; set; } = [];
+        public ICollection<VoucherPiece> VoucherPieces { get; set; } = [];
     }
 }

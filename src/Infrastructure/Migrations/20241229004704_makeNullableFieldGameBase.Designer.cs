@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241228000022_v3")]
-    partial class v3
+    [Migration("20241229004704_makeNullableFieldGameBase")]
+    partial class makeNullableFieldGameBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,14 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab6"),
+                            Name = "Brand 1",
+                            UserId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab4")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.BrandBranch", b =>
@@ -123,6 +131,18 @@ namespace Infrastructure.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            BrandId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab6"),
+                            EndAt = new DateTime(2025, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "",
+                            Name = "Event Example",
+                            StartAt = new DateTime(2024, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 2
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.EventVoucher", b =>
@@ -147,6 +167,22 @@ namespace Infrastructure.Migrations
                     b.HasIndex("VoucherId");
 
                     b.ToTable("EventVouchers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab10"),
+                            EventId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            Quantity = 100000000,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab7")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab11"),
+                            EventId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            Quantity = 1,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab8")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.ExchangePiece", b =>
@@ -191,13 +227,19 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Type")
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -208,6 +250,26 @@ namespace Infrastructure.Migrations
                     b.HasIndex("GamePrototypeId");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab26"),
+                            EndTime = new DateTime(2025, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            GamePrototypeId = new Guid("9e4f49fe-0786-44c6-9061-53d2ed84fab3"),
+                            StartTime = new DateTime(2024, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Active"
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab27"),
+                            EndTime = new DateTime(2025, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            GamePrototypeId = new Guid("9e4f49fe-0786-44c6-9061-1232aa84fab3"),
+                            StartTime = new DateTime(2024, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.GamePrototype", b =>
@@ -242,6 +304,28 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GamePrototypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0786-44c6-9061-53d2ed84fab3"),
+                            CanExchangeVoucherPieces = false,
+                            GameplayInstruction = "Answer the questions in livestream, choose right answers exceeding threshold to win a voucher",
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCqwR5F3YJTWvePHVfsLoUgppmfPwEKJTV3A&s",
+                            Name = "Quiz Game",
+                            Status = "Active",
+                            Type = "Quiz"
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0786-44c6-9061-1232aa84fab3"),
+                            CanExchangeVoucherPieces = true,
+                            GameplayInstruction = "Shake your phone to win a voucher piece, combine all difference pieces to get a voucher",
+                            ImageUrl = "https://play-lh.googleusercontent.com/gtcbFGJIhU9Zfni1REuvrzlyQ0AnSV-9wUlL_hf32ACzwGAfeL1ttJJ09RSfvFoNA7nI=w240-h480-rw",
+                            Name = "Shake Game",
+                            Status = "Active",
+                            Type = "Shake"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
@@ -269,6 +353,72 @@ namespace Infrastructure.Migrations
                     b.HasIndex("QuestionSetId");
 
                     b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab18"),
+                            AnswerList = "Hanoi;Ho Chi Minh;Da Nang;Hue",
+                            Content = "What is the capital of Vietnam?",
+                            CorrectAnswer = 1,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab19"),
+                            AnswerList = "Lyon;Paris;Marseille;Nice",
+                            Content = "What is the capital of France?",
+                            CorrectAnswer = 2,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab20"),
+                            AnswerList = "New York;Washington D.C;Los Angeles;Chicago",
+                            Content = "What is the capital of USA?",
+                            CorrectAnswer = 3,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab21"),
+                            AnswerList = "Tokyo;Osaka;Kyoto;Hokkaido",
+                            Content = "What is the capital of Japan?",
+                            CorrectAnswer = 4,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab22"),
+                            AnswerList = "Seoul;Busan;Incheon;Daegu",
+                            Content = "What is the capital of South Korea?",
+                            CorrectAnswer = 1,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab23"),
+                            AnswerList = "Beijing;Shanghai;Guangzhou;Shenzhen",
+                            Content = "What is the capital of China?",
+                            CorrectAnswer = 2,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab24"),
+                            AnswerList = "Bangkok;Chiang Mai;Phuket;Pattaya",
+                            Content = "What is the capital of Thailand?",
+                            CorrectAnswer = 3,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab25"),
+                            AnswerList = "Singapore;Sentosa;Jurong;Changi",
+                            Content = "What is the capital of Singapore?",
+                            CorrectAnswer = 4,
+                            QuestionSetId = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.QuestionSet", b =>
@@ -285,6 +435,13 @@ namespace Infrastructure.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("QuestionSets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab17"),
+                            BrandId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab6")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.QuizzGame", b =>
@@ -296,14 +453,14 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("EventGameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GamePrototypeId")
+                    b.Property<Guid?>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("QuestionSetId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("WiningScore")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -325,7 +482,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("EventGameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GamePrototypeId")
+                    b.Property<Guid?>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VoucherPieceCount")
@@ -376,6 +533,38 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab3"),
+                            Email = "player@example.com",
+                            FullName = "Player 1",
+                            Hash = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                            ImageUrl = "",
+                            Phone = "0333444555",
+                            Role = "player"
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab4"),
+                            Email = "brand@example.com",
+                            FullName = "Brand 1",
+                            Hash = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                            ImageUrl = "",
+                            Phone = "0333444556",
+                            Role = "brand"
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab5"),
+                            Email = "admin@example.com",
+                            FullName = "Admin 1",
+                            Hash = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                            ImageUrl = "",
+                            Phone = "0333444557",
+                            Role = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserEvent", b =>
@@ -400,6 +589,15 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab16"),
+                            EventId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab9"),
+                            TurnsLeft = 300,
+                            UserId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab3")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserPiece", b =>
@@ -494,6 +692,34 @@ namespace Infrastructure.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Vouchers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab7"),
+                            BrandId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab6"),
+                            Code = "Voucher 1",
+                            Description = "Đổi 1 tỉ tiền mặt",
+                            ExpiredAt = new DateTime(2025, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "",
+                            PieceCount = 2,
+                            QrCodeUrl = "",
+                            Quantity = 10000000,
+                            Value = 1000000
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab8"),
+                            BrandId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab6"),
+                            Code = "Voucher 2",
+                            Description = "Chúc bạn 1 ngày zui zẻ",
+                            ExpiredAt = new DateTime(2024, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "",
+                            PieceCount = 2,
+                            QrCodeUrl = "",
+                            Quantity = 10000000,
+                            Value = 1000000
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.VoucherPiece", b =>
@@ -517,6 +743,36 @@ namespace Infrastructure.Migrations
                     b.HasIndex("VoucherId");
 
                     b.ToTable("VoucherPieces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab12"),
+                            ImageUrl = "https://roflmagnets.com/447-medium_default/number-1.jpg",
+                            PieceNumber = 1,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab7")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab13"),
+                            ImageUrl = "https://roflmagnets.com/304-large_default/number-2.jpg",
+                            PieceNumber = 2,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab7")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab14"),
+                            ImageUrl = "https://roflmagnets.com/447-medium_default/number-1.jpg",
+                            PieceNumber = 1,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab8")
+                        },
+                        new
+                        {
+                            Id = new Guid("9e4f49fe-0783-44c6-9061-3d2ed84fab15"),
+                            ImageUrl = "https://roflmagnets.com/304-large_default/number-2.jpg",
+                            PieceNumber = 2,
+                            VoucherId = new Guid("9e4f49fe-0783-44c6-9061-53d2ed84fab8")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.WishList", b =>
@@ -665,9 +921,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
                         .WithMany()
-                        .HasForeignKey("GamePrototypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GamePrototypeId");
 
                     b.HasOne("Domain.Entities.QuestionSet", "QuestionSet")
                         .WithMany()
@@ -692,9 +946,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
                         .WithMany()
-                        .HasForeignKey("GamePrototypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GamePrototypeId");
 
                     b.Navigation("EventGame");
 

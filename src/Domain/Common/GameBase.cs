@@ -10,10 +10,10 @@ namespace Domain.Common
     {
         public Guid Id { get; set; }
         public Guid EventGameId { get; set; }
-        public Guid GamePrototypeId { get; set; }
+        public Guid? GamePrototypeId { get; set; } = null;
 
         // Navigation Properties
-        public Game EventGame { get; set; } = null!;
-        public GamePrototype GamePrototype { get; set; } = null!;
+        public Game EventGame { get; set; } = null!; // EventGame equal to Game
+        public GamePrototype? GamePrototype { get; set; } = null;
     }
 }
