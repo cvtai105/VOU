@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228234833_seedData")]
+    partial class seedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -450,7 +453,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("EventGameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("GamePrototypeId")
+                    b.Property<Guid>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("QuestionSetId")
@@ -479,7 +482,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("EventGameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("GamePrototypeId")
+                    b.Property<Guid>("GamePrototypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VoucherPieceCount")
@@ -918,7 +921,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
                         .WithMany()
-                        .HasForeignKey("GamePrototypeId");
+                        .HasForeignKey("GamePrototypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.QuestionSet", "QuestionSet")
                         .WithMany()
@@ -943,7 +948,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.GamePrototype", "GamePrototype")
                         .WithMany()
-                        .HasForeignKey("GamePrototypeId");
+                        .HasForeignKey("GamePrototypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventGame");
 

@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Interfaces;
 using Application.Services.GameServices.Contract;
-using Application.Services.GameServices.QuizzGame;
-using Application.Services.GameServices.ShakeGame;
+using Application.Services.GameServices.QuizzGameService;
+using Application.Services.GameServices.ShakeGameServices;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services.GameServices.Factory
@@ -14,19 +11,21 @@ namespace Application.Services.GameServices.Factory
 
         private ILogger<ShakeGameCreator> _shakeLogger;
         private ILogger<QuizzGameCreator> _quizzLogger;
+        private IApplicationDbContext _context;
 
-        public GameCreatorFactory(ILogger<ShakeGameCreator> shakeLogger, ILogger<QuizzGameCreator> quizzLogger)
+        public GameCreatorFactory(ILogger<ShakeGameCreator> shakeLogger, ILogger<QuizzGameCreator> quizzLogger, IApplicationDbContext context)
         {
             _shakeLogger = shakeLogger;
             _quizzLogger = quizzLogger;
+            _context = context;
         }
 
         public IGameCreator GetGameCreator(string gamePrototypeType)
         {
             return gamePrototypeType switch
             {
-                "Shake" => new ShakeGameCreator(_shakeLogger),
-                "Quizz" => new QuizzGameCreator(_quizzLogger),
+                "Shake" => new ShakeGameCreator(_shakeLogger, _context),
+                "Quiz" => new QuizzGameCreator(_quizzLogger, _context),
                 _ => throw new ArgumentException("Invalid game type")
             };
         }

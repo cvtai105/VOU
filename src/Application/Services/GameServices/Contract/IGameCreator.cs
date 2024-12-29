@@ -7,6 +7,6 @@ namespace Application.Services.GameServices.Contract
 {
     public interface IGameCreator
     {
-        Task<bool> CreateGameAsync(CreateGameParamsAbstract createGameParams);
+        Task<bool> CreateGameAsync(CreateGameParamsBase createGameParams);
     }
 }
