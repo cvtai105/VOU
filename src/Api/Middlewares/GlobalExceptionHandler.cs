@@ -43,6 +43,8 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IHos
             ValidationException => (400, "A validation error occurred"),
             NotFoundException => (404, "Resource not found"),
             UnsupportedRoleException => (403, "Unsupported role"),
+            NotImplementedException => (501, "This api is still under development"),
+            DeserializeCreateGameParamsException => (400, "Error when deserializing to concrete game type"),
             _ => (500, "An unhandled error occurred")
         };
     }

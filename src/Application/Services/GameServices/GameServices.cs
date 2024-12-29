@@ -14,12 +14,12 @@ namespace Application.Services.GameServices
     {
         private readonly IApplicationDbContext _context;
         private readonly GameCreatorFactory _gameCreatorFactory;
-        private Logger<GameServices> _logger;
+        private ILogger<GameServices> _logger;
 
         public GameServices(
             IApplicationDbContext context,
             GameCreatorFactory gameCreatorFactory,
-            Logger<GameServices> logger)
+            ILogger<GameServices> logger)
         {
             _context = context;
             _gameCreatorFactory = gameCreatorFactory;
@@ -30,7 +30,12 @@ namespace Application.Services.GameServices
         {
             //get event
             var eventEntity = _context.Events.Find(request.EventId)?? throw new NotFoundException("Event not found");
-            if (eventEntity.BrandId != request.BrandId)
+
+            //get brand id
+            var userId = request.UserId;
+            var brandId = _context.Brands.Where(x => x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+
+            if (eventEntity.BrandId != brandId)
             {
                 throw new ForbiddenAccessException("Brand does not have access to this event");
             }
@@ -38,26 +43,24 @@ namespace Application.Services.GameServices
             //create games
             foreach (var eventGame in request.CreateEventGameParams)
             {
-                var gameCreator = _gameCreatorFactory.GetGameCreator(eventGame.GameType);
+                eventGame.EventId = request.EventId;
+                var gameCreator = _gameCreatorFactory.GetGameCreator(eventGame.Type);
                 await gameCreator.CreateGameAsync(eventGame);
             }
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public Task<List<GamePrototype>> GetActiveGames()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<List<Game>> GetEventGamesByEventId(Guid eventId)
         {
-            throw new NotImplementedException();
+            var games = _context.Games.Where(x => x.EventId == eventId).Include(x => x.GamePrototype).ToList();
+            return Task.FromResult(games);
         }
 
-        public Task<List<Game>> GetEventGamesByGameBaseId(Guid gameBaseId)
+        public Task<List<Game>> GetEventGamesByGamePrototypeId(Guid prototypeId)
         {
-            throw new NotImplementedException();
+            var games = _context.Games.Where(x => x.GamePrototypeId == prototypeId).Include(x => x.Event).ToList();
+            return Task.FromResult(games);
         }
 
         public Task GetGameDetail(Guid gameId)

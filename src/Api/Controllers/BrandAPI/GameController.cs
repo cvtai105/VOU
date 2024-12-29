@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Application.DTOs.Game;
 using Application.Services.GameServices;
 using Microsoft.AspNetCore.Authorization;
@@ -20,19 +21,23 @@ namespace Api.Controllers.BrandAPI
         }
 
 
-        // [HttpDelete]
-        // [Route("{gameId}")]
-        // public IActionResult StopEventGame(Guid gameId)
-        // {
-        //     _ = _gameServices.StopEventGame(gameId);
-        //     return NoContent();
-        // }
+        [HttpPatch]
+        public IActionResult StopEventGame(Guid gameId)
+        {
+            _ = _gameServices.StopEventGame(gameId);
+            return NoContent();
+        }
 
         [HttpPost]
+        [Route("create")]
         public async Task<IActionResult> AddEventGamesAsync([FromBody] CreateEventGameRequest createEventGameParams)
         {
+            var userId = User?.FindFirstValue("userId")?? throw new UnauthorizedAccessException("User not found");
+            _logger.LogInformation($"User {userId} is adding games to event {createEventGameParams.EventId}");
+
+
+            createEventGameParams.UserId = Guid.Parse(userId);
             var result = await _gameServices.AddGamesToEventAsync(createEventGameParams);
-            
             return Ok(result); 
         }
         

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers.PlayerAPI
 {
-    [Route("[controller]")]
+    [Route("api/player/games")]
     public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
@@ -19,26 +19,10 @@ namespace Api.Controllers.PlayerAPI
         }
 
         [HttpGet]
-        [Route("gamebases")]
-        public IActionResult GetActive()
-        {
-            return Ok("gamebases");
-        }
-
-        [HttpGet]
-        [Route("event/{eventId}")]
-        public IActionResult GetByEvent(Guid eventId)
-        {
-            return Ok("Games by event");
-        }
-
-        [HttpPost]
-        [Route("reward/game/{gameId}")]
+        [Route("reward/{gameId}")]
         public IActionResult Reward(Guid gameId)
         {
             return Ok("Game rewarded");
         }
-
-       
     }
 }
