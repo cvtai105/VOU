@@ -1,11 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Application.DTOs.GameDTOs;
 using Application.Exceptions;
-using Application.Services.GameServices.Contract;
-using Application.Services.GameServices.QuizzGameService;
+using Application.Services.GameServices.QuizzGameServices;
 using Application.Services.GameServices.ShakeGameServices;
 
-namespace Application.Services.GameServices.Converter;
+namespace Application.Helpers.Converter;
 
 public class CreateGameParamsConverter  : JsonConverter<CreateGameParamsBase>
 {

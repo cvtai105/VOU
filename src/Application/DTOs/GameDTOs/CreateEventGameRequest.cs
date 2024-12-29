@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Application.Services.GameServices.Contract;
 
-namespace Application.DTOs.Game
+namespace Application.DTOs.GameDTOs
 {
     public class CreateEventGameRequest
     {

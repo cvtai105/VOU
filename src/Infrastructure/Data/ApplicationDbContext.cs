@@ -57,7 +57,7 @@ namespace Infrastructure.Data
             );
 
             builder.Entity<QuestionSet>().HasData(
-                new QuestionSet { Id = Guid.Parse("9e4f49fe-0783-44c6-9061-3d2ed84fab17"), BrandId = Guid.Parse("9e4f49fe-0783-44c6-9061-53d2ed84fab6")}
+                new QuestionSet { Id = Guid.Parse("9e4f49fe-0783-44c6-9061-3d2ed84fab17"), BrandId = Guid.Parse("9e4f49fe-0783-44c6-9061-53d2ed84fab6"), Name = "Question Set 1" }
             );
 
             builder.Entity<Question>().HasData(

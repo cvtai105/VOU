@@ -1,6 +1,6 @@
 namespace Domain.Constants
 {
-    public class GameType
+    public static class GameType
     {
         public const string Quiz = "Quiz";
         public const string Shake = "Shake";
